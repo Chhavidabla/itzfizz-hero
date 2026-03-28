@@ -6,8 +6,7 @@ A premium, scroll-driven hero section built as a frontend assignment submission.
 
 ## 🌐 Live Demo
 
-> **[View Live on GitHub Pages](https://your-username.github.io/itzfizz-hero)**
-> *(Replace with your actual deployed URL)*
+> **[View Live on GitHub Pages](https://chhavidabla.github.io/itzfizz-hero/)**
 
 ---
 
@@ -100,7 +99,7 @@ No installation needed. Just open the file in a browser:
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/itzfizz-hero.git
+git clone https://github.com/Chhavidabla/itzfizz-hero
 
 # Navigate into the folder
 cd itzfizz-hero
@@ -119,9 +118,7 @@ start index.html
 1. Push the repository to GitHub
 2. Go to **Settings → Pages**
 3. Set source to **Deploy from a branch → main → / (root)**
-4. Click **Save** — your site will be live in ~60 seconds at:
-   `https://your-username.github.io/itzfizz-hero`
-
+4. Click **Save** — your site will be live in ~60 seconds.
 ---
 
 ## ⚡ Performance Decisions
