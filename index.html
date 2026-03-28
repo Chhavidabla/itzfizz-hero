@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ITZFIZZ — Hero Animation</title>
+    <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+   <script src="script.js" defer></script>
+
+  
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Noise -->
+<div class="noise"></div>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ═══════════════════════════════════════ NAV -->
+<nav>
+  <div class="nav-logo">ITZ<span>FIZZ</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Platform</a></li>
+    <li><a href="#">Solutions</a></li>
+    <li><a href="#">Insights</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <button class="nav-cta">Get Started</button>
+</nav>
+
+<!-- ═══════════════════════════════════════ HERO -->
+<section class="hero" id="hero">
+  <!-- Decorative elements -->
+  <div class="grid-overlay"></div>
+  <div class="accent-stripe" id="accentStripe"></div>
+  <div class="bracket bracket-tl" id="bTL"></div>
+  <div class="bracket bracket-tr" id="bTR"></div>
+  <div class="bracket bracket-bl" id="bBL"></div>
+  <div class="bracket bracket-br" id="bBR"></div>
+
+  <!-- LEFT -->
+  <div class="hero-left">
+    <!-- Headline -->
+    <div class="headline-wrap">
+      <h1 class="headline">
+        <div class="headline-row"><span>W</span><span>E</span><span>L</span><span>C</span><span>O</span><span>M</span><span>E</span></div>
+        <div class="headline-row accent-word"><span>I</span><span>T</span><span>Z</span><span style="margin:0 12px"></span><span>F</span><span>I</span><span>Z</span><span>Z</span></div>
+      </h1>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-item" id="s1">
+        <div class="stat-num">58<span class="unit">%</span></div>
+        <div class="stat-label">Increase in pick-up<br>point utilisation</div>
+        <div class="stat-bar" id="bar1"></div>
+      </div>
+      <div class="stat-item" id="s2">
+        <div class="stat-num">23<span class="unit">%</span></div>
+        <div class="stat-label">Decrease in customer<br>phone calls</div>
+        <div class="stat-bar" id="bar2"></div>
+      </div>
+      <div class="stat-item" id="s3">
+        <div class="stat-num">27<span class="unit">%</span></div>
+        <div class="stat-label">Boost in delivery<br>success rate</div>
+        <div class="stat-bar" id="bar3"></div>
+      </div>
+      <div class="stat-item" id="s4">
+        <div class="stat-num">40<span class="unit">%</span></div>
+        <div class="stat-label">Reduction in last-mile<br>operational costs</div>
+        <div class="stat-bar" id="bar4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — Car -->
+  <div class="hero-right">
+    <div class="bg-number">720</div>
+    <div class="glow-blob"></div>
+
+    <!-- Speed lines -->
+    <div class="speed-lines" id="speedLines"></div>
+
+    <!-- Car -->
+    <div class="car-container" id="heroCar">
+      <!--
+        Using a top-view SVG car illustration since the original PNG may not load cross-origin.
+        Drawn as an SVG for crisp rendering at any scale.
+      -->
+      <svg class="car-img" id="carSvg" viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stop-color="#1a1a1a"/>
+            <stop offset="40%"  stop-color="#2a2a2a"/>
+            <stop offset="100%" stop-color="#0a0a0a"/>
+          </linearGradient>
+          <linearGradient id="roofGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stop-color="#222"/>
+            <stop offset="100%" stop-color="#111"/>
+          </linearGradient>
+          <linearGradient id="windshieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#1e3a4a" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#0a1a22" stop-opacity="0.7"/>
+          </linearGradient>
+          <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#e5f535"/>
+            <stop offset="100%" stop-color="#c8d820"/>
+          </linearGradient>
+          <filter id="carGlow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="shadowF">
+            <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="rgba(229,245,53,0.3)"/>
+          </filter>
+          <radialGradient id="underGlow" cx="50%" cy="100%" r="50%">
+            <stop offset="0%" stop-color="#e5f535" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+          </radialGradient>
+          <clipPath id="bodyClip">
+            <path d="M80,145 Q100,60 200,40 L500,40 Q600,60 620,145 L640,215 Q640,260 600,275 L500,290 Q420,300 350,300 Q280,300 200,290 L100,275 Q60,260 60,215 Z"/>
+          </clipPath>
+        </defs>
+
+        <!-- Under-glow -->
+        <ellipse cx="350" cy="295" rx="260" ry="22" fill="url(#underGlow)" opacity="0.6"/>
+
+        <!-- Body shadow -->
+        <ellipse cx="350" cy="300" rx="270" ry="18" fill="#000" opacity="0.55" filter="url(#shadowF)"/>
+
+        <!-- Main body -->
+        <path d="M80,148 Q102,65 200,44 L500,44 Q598,65 620,148 L640,218 Q640,262 600,276 L500,292 Q420,302 350,302 Q280,302 200,292 L100,276 Q60,262 60,218 Z"
+              fill="url(#bodyGrad)" stroke="#1e1e1e" stroke-width="1.5"/>
+
+        <!-- Accent side stripe left -->
+        <path d="M95,175 Q150,155 220,152 L220,162 Q150,165 98,185 Z" fill="url(#accentGrad)" opacity="0.9"/>
+        <!-- Accent side stripe right -->
+        <path d="M605,175 Q550,155 480,152 L480,162 Q550,165 602,185 Z" fill="url(#accentGrad)" opacity="0.9"/>
+
+        <!-- Wheel arches — left front -->
+        <ellipse cx="160" cy="248" rx="58" ry="52" fill="#080808" stroke="#252525" stroke-width="2"/>
+        <!-- Wheel arches — right front -->
+        <ellipse cx="540" cy="248" rx="58" ry="52" fill="#080808" stroke="#252525" stroke-width="2"/>
+        <!-- Wheel arches — left rear -->
+        <ellipse cx="165" cy="138" rx="55" ry="48" fill="#080808" stroke="#252525" stroke-width="2"/>
+        <!-- Wheel arches — right rear -->
+        <ellipse cx="535" cy="138" rx="55" ry="48" fill="#080808" stroke="#252525" stroke-width="2"/>
+
+        <!-- Wheels — front left -->
+        <ellipse cx="160" cy="248" rx="46" ry="42" fill="#141414" stroke="#333" stroke-width="2"/>
+        <ellipse cx="160" cy="248" rx="32" ry="29" fill="#0c0c0c" stroke="url(#accentGrad)" stroke-width="1.5"/>
+        <ellipse cx="160" cy="248" rx="10" ry="9"  fill="#1a1a1a"/>
+        <!-- Spoke details front left -->
+        <line x1="160" y1="219" x2="160" y2="239" stroke="#333" stroke-width="2"/>
+        <line x1="160" y1="257" x2="160" y2="277" stroke="#333" stroke-width="2"/>
+        <line x1="131" y1="248" x2="150" y2="248" stroke="#333" stroke-width="2"/>
+        <line x1="170" y1="248" x2="189" y2="248" stroke="#333" stroke-width="2"/>
+        <line x1="139" y1="227" x2="152" y2="240" stroke="#333" stroke-width="1.5"/>
+        <line x1="168" y1="256" x2="181" y2="269" stroke="#333" stroke-width="1.5"/>
+        <line x1="181" y1="227" x2="168" y2="240" stroke="#333" stroke-width="1.5"/>
+        <line x1="152" y1="256" x2="139" y2="269" stroke="#333" stroke-width="1.5"/>
+
+        <!-- Wheels — front right -->
+        <ellipse cx="540" cy="248" rx="46" ry="42" fill="#141414" stroke="#333" stroke-width="2"/>
+        <ellipse cx="540" cy="248" rx="32" ry="29" fill="#0c0c0c" stroke="url(#accentGrad)" stroke-width="1.5"/>
+        <ellipse cx="540" cy="248" rx="10" ry="9"  fill="#1a1a1a"/>
+        <line x1="540" y1="219" x2="540" y2="239" stroke="#333" stroke-width="2"/>
+        <line x1="540" y1="257" x2="540" y2="277" stroke="#333" stroke-width="2"/>
+        <line x1="511" y1="248" x2="530" y2="248" stroke="#333" stroke-width="2"/>
+        <line x1="550" y1="248" x2="569" y2="248" stroke="#333" stroke-width="2"/>
+        <line x1="519" y1="227" x2="532" y2="240" stroke="#333" stroke-width="1.5"/>
+        <line x1="548" y1="256" x2="561" y2="269" stroke="#333" stroke-width="1.5"/>
+        <line x1="561" y1="227" x2="548" y2="240" stroke="#333" stroke-width="1.5"/>
+        <line x1="532" y1="256" x2="519" y2="269" stroke="#333" stroke-width="1.5"/>
+
+        <!-- Wheels — rear left -->
+        <ellipse cx="165" cy="138" rx="44" ry="40" fill="#141414" stroke="#333" stroke-width="2"/>
+        <ellipse cx="165" cy="138" rx="30" ry="27" fill="#0c0c0c" stroke="url(#accentGrad)" stroke-width="1.5"/>
+        <ellipse cx="165" cy="138" rx="9"  ry="8"  fill="#1a1a1a"/>
+        <line x1="165" y1="111" x2="165" y2="129" stroke="#333" stroke-width="2"/>
+        <line x1="165" y1="147" x2="165" y2="165" stroke="#333" stroke-width="2"/>
+        <line x1="138" y1="138" x2="156" y2="138" stroke="#333" stroke-width="2"/>
+        <line x1="174" y1="138" x2="192" y2="138" stroke="#333" stroke-width="2"/>
+
+        <!-- Wheels — rear right -->
+        <ellipse cx="535" cy="138" rx="44" ry="40" fill="#141414" stroke="#333" stroke-width="2"/>
+        <ellipse cx="535" cy="138" rx="30" ry="27" fill="#0c0c0c" stroke="url(#accentGrad)" stroke-width="1.5"/>
+        <ellipse cx="535" cy="138" rx="9"  ry="8"  fill="#1a1a1a"/>
+        <line x1="535" y1="111" x2="535" y2="129" stroke="#333" stroke-width="2"/>
+        <line x1="535" y1="147" x2="535" y2="165" stroke="#333" stroke-width="2"/>
+        <line x1="508" y1="138" x2="526" y2="138" stroke="#333" stroke-width="2"/>
+        <line x1="544" y1="138" x2="562" y2="138" stroke="#333" stroke-width="2"/>
+
+        <!-- Roof / cabin -->
+        <path d="M210,180 Q230,110 280,90 L420,90 Q470,110 490,180 L490,220 Q470,240 420,248 L280,248 Q230,240 210,220 Z"
+              fill="url(#roofGrad)" stroke="#2a2a2a" stroke-width="1"/>
+
+        <!-- Windshield (front — top of image) -->
+        <path d="M222,172 Q240,105 282,88 L418,88 Q460,105 478,172 L475,178 Q455,130 420,118 L280,118 Q245,130 225,178 Z"
+              fill="url(#windshieldGrad)" stroke="#1a3040" stroke-width="1" opacity="0.9"/>
+
+        <!-- Rear window -->
+        <path d="M225,220 Q240,245 275,255 L425,255 Q460,245 475,220 L472,216 Q457,238 425,248 L275,248 Q243,238 228,216 Z"
+              fill="url(#windshieldGrad)" stroke="#1a3040" stroke-width="1" opacity="0.75"/>
+
+        <!-- Center console / hood line -->
+        <line x1="350" y1="44" x2="350" y2="88" stroke="#252525" stroke-width="1.5"/>
+        <line x1="350" y1="255" x2="350" y2="302" stroke="#252525" stroke-width="1.5"/>
+
+        <!-- Headlights -->
+        <path d="M87,125 Q95,100 120,92 L200,88 L196,100 Q165,104 140,114 Q115,125 108,148 Z"
+              fill="#e5f535" opacity="0.12"/>
+        <path d="M90,130 Q98,108 118,102 L186,98 L183,108 Q158,112 136,122 Q112,133 105,152 Z"
+              fill="none" stroke="#e5f535" stroke-width="1" opacity="0.6"/>
+        <!-- DRL left -->
+        <path d="M95,135 L130,115" stroke="#e5f535" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+        <path d="M100,148 L138,128" stroke="#e5f535" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+        <!-- Headlights right -->
+        <path d="M613,125 Q605,100 580,92 L500,88 L504,100 Q535,104 560,114 Q585,125 592,148 Z"
+              fill="#e5f535" opacity="0.12"/>
+        <path d="M610,130 Q602,108 582,102 L514,98 L517,108 Q542,112 564,122 Q588,133 595,152 Z"
+              fill="none" stroke="#e5f535" stroke-width="1" opacity="0.6"/>
+        <!-- DRL right -->
+        <path d="M605,135 L570,115" stroke="#e5f535" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+        <path d="M600,148 L562,128" stroke="#e5f535" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+        <!-- Taillights -->
+        <path d="M100,260 Q112,280 135,288 L200,292 L196,280 Q168,278 145,270 Q120,262 108,248 Z"
+              fill="#ff3e3e" opacity="0.35"/>
+        <path d="M600,260 Q588,280 565,288 L500,292 L504,280 Q532,278 555,270 Q580,262 592,248 Z"
+              fill="#ff3e3e" opacity="0.35"/>
+
+        <!-- Hood vent slits -->
+        <rect x="295" y="68" width="50" height="3" rx="1.5" fill="#1a1a1a"/>
+        <rect x="295" y="75" width="50" height="3" rx="1.5" fill="#1a1a1a"/>
+        <rect x="295" y="56" width="50" height="3" rx="1.5" fill="#1a1a1a"/>
+
+        <!-- Body panel highlight lines -->
+        <path d="M230,165 Q270,135 350,132 Q430,135 470,165" fill="none" stroke="#2e2e2e" stroke-width="1"/>
+        <path d="M230,220 Q270,240 350,242 Q430,240 470,220" fill="none" stroke="#2e2e2e" stroke-width="1"/>
+
+        <!-- ITZFIZZ badge on hood -->
+        <text x="350" y="76" font-family="'Bebas Neue', sans-serif" font-size="10" fill="#e5f535" opacity="0.7" text-anchor="middle" letter-spacing="4">ITZFIZZ</text>
+      </svg>
+
+      <div class="car-reflection"></div>
+    </div>
+
+    <!-- Vertical side label -->
+    <div class="vert-label" id="vertLabel">McLaren 720S · Supercar Edition</div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-hint" id="scrollHint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SCROLL SECTION -->
+<section class="scroll-section" id="scrollSection">
+  <div class="sticky-wrap">
+    <div class="scroll-stage">
+      <!-- Rotating ring text -->
+      <svg class="ring-text" viewBox="0 0 340 340">
+        <path id="ringPath" d="M170,170 m-140,0 a140,140 0 1,1 280,0 a140,140 0 1,1 -280,0" fill="none"/>
+        <text font-family="'Space Mono', monospace" font-size="12" fill="#f0ede6" letter-spacing="8">
+          <textPath href="#ringPath">ITZFIZZ · PERFORMANCE · LOGISTICS · INNOVATION · </textPath>
+        </text>
+      </svg>
+
+      <!-- Big background label -->
+      <div class="bg-number" style="opacity:0.025; font-size:clamp(10rem,22vw,22rem);">FIZZ</div>
+
+      <!-- Scrolling car -->
+      <div class="scroll-car-wrap" id="scrollCarWrap">
+        <svg class="scroll-car" id="scrollCar" viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg">
+          <use href="#" xlink:href="#"/>
+          <!-- Cloned inline for simplicity -->
+          <defs>
+            <linearGradient id="b2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%"   stop-color="#1a1a1a"/>
+              <stop offset="40%"  stop-color="#2a2a2a"/>
+              <stop offset="100%" stop-color="#0a0a0a"/>
+            </linearGradient>
+            <linearGradient id="a2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#e5f535"/>
+              <stop offset="100%" stop-color="#c8d820"/>
+            </linearGradient>
+            <linearGradient id="w2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1e3a4a" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#0a1a22" stop-opacity="0.7"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="350" cy="295" rx="260" ry="22" fill="#e5f535" opacity="0.08"/>
+          <ellipse cx="350" cy="300" rx="270" ry="18" fill="#000" opacity="0.5"/>
+          <path d="M80,148 Q102,65 200,44 L500,44 Q598,65 620,148 L640,218 Q640,262 600,276 L500,292 Q420,302 350,302 Q280,302 200,292 L100,276 Q60,262 60,218 Z" fill="url(#b2)" stroke="#1e1e1e" stroke-width="1.5"/>
+          <path d="M95,175 Q150,155 220,152 L220,162 Q150,165 98,185 Z" fill="url(#a2)" opacity="0.9"/>
+          <path d="M605,175 Q550,155 480,152 L480,162 Q550,165 602,185 Z" fill="url(#a2)" opacity="0.9"/>
+          <ellipse cx="160" cy="248" rx="58" ry="52" fill="#080808" stroke="#252525" stroke-width="2"/>
+          <ellipse cx="540" cy="248" rx="58" ry="52" fill="#080808" stroke="#252525" stroke-width="2"/>
+          <ellipse cx="165" cy="138" rx="55" ry="48" fill="#080808" stroke="#252525" stroke-width="2"/>
+          <ellipse cx="535" cy="138" rx="55" ry="48" fill="#080808" stroke="#252525" stroke-width="2"/>
+          <ellipse cx="160" cy="248" rx="46" ry="42" fill="#141414" stroke="#333" stroke-width="2"/>
+          <ellipse cx="160" cy="248" rx="32" ry="29" fill="#0c0c0c" stroke="url(#a2)" stroke-width="1.5"/>
+          <ellipse cx="160" cy="248" rx="10" ry="9"  fill="#1a1a1a"/>
+          <ellipse cx="540" cy="248" rx="46" ry="42" fill="#141414" stroke="#333" stroke-width="2"/>
+          <ellipse cx="540" cy="248" rx="32" ry="29" fill="#0c0c0c" stroke="url(#a2)" stroke-width="1.5"/>
+          <ellipse cx="540" cy="248" rx="10" ry="9"  fill="#1a1a1a"/>
+          <ellipse cx="165" cy="138" rx="44" ry="40" fill="#141414" stroke="#333" stroke-width="2"/>
+          <ellipse cx="165" cy="138" rx="30" ry="27" fill="#0c0c0c" stroke="url(#a2)" stroke-width="1.5"/>
+          <ellipse cx="165" cy="138" rx="9"  ry="8"  fill="#1a1a1a"/>
+          <ellipse cx="535" cy="138" rx="44" ry="40" fill="#141414" stroke="#333" stroke-width="2"/>
+          <ellipse cx="535" cy="138" rx="30" ry="27" fill="#0c0c0c" stroke="url(#a2)" stroke-width="1.5"/>
+          <ellipse cx="535" cy="138" rx="9"  ry="8"  fill="#1a1a1a"/>
+          <path d="M210,180 Q230,110 280,90 L420,90 Q470,110 490,180 L490,220 Q470,240 420,248 L280,248 Q230,240 210,220 Z" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
+          <path d="M222,172 Q240,105 282,88 L418,88 Q460,105 478,172 L475,178 Q455,130 420,118 L280,118 Q245,130 225,178 Z" fill="url(#w2)" stroke="#1a3040" stroke-width="1" opacity="0.9"/>
+          <path d="M225,220 Q240,245 275,255 L425,255 Q460,245 475,220 L472,216 Q457,238 425,248 L275,248 Q243,238 228,216 Z" fill="url(#w2)" stroke="#1a3040" stroke-width="1" opacity="0.75"/>
+          <path d="M87,125 Q95,100 120,92 L200,88 L196,100 Q165,104 140,114 Q115,125 108,148 Z" fill="#e5f535" opacity="0.12"/>
+          <path d="M90,130 Q98,108 118,102 L186,98 L183,108 Q158,112 136,122 Q112,133 105,152 Z" fill="none" stroke="#e5f535" stroke-width="1" opacity="0.6"/>
+          <path d="M95,135 L130,115" stroke="#e5f535" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+          <path d="M613,125 Q605,100 580,92 L500,88 L504,100 Q535,104 560,114 Q585,125 592,148 Z" fill="#e5f535" opacity="0.12"/>
+          <path d="M610,130 Q602,108 582,102 L514,98 L517,108 Q542,112 564,122 Q588,133 595,152 Z" fill="none" stroke="#e5f535" stroke-width="1" opacity="0.6"/>
+          <path d="M605,135 L570,115" stroke="#e5f535" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+          <path d="M100,260 Q112,280 135,288 L200,292 L196,280 Q168,278 145,270 Q120,262 108,248 Z" fill="#ff3e3e" opacity="0.35"/>
+          <path d="M600,260 Q588,280 565,288 L500,292 L504,280 Q532,278 555,270 Q580,262 592,248 Z" fill="#ff3e3e" opacity="0.35"/>
+          <rect x="295" y="68" width="50" height="3" rx="1.5" fill="#1a1a1a"/>
+          <rect x="295" y="75" width="50" height="3" rx="1.5" fill="#1a1a1a"/>
+          <rect x="295" y="56" width="50" height="3" rx="1.5" fill="#1a1a1a"/>
+          <text x="350" y="76" font-family="'Bebas Neue', sans-serif" font-size="10" fill="#e5f535" opacity="0.7" text-anchor="middle" letter-spacing="4">ITZFIZZ</text>
+        </svg>
+      </div>
+
+      <!-- Scroll phase text -->
+      <div class="scroll-text" id="scrollPhaseText">
+        <h2 id="phaseHeadline">PRECISION DELIVERY</h2>
+        <p id="phaseSubline">Scroll-driven logistics intelligence</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ CONTENT -->
+<section class="content-section">
+  <div>
+    <div class="content-label">Platform Overview</div>
+    <h2 class="content-title">BUILT FOR<br>LAST-MILE<br>EXCELLENCE</h2>
+    <div class="content-pills">
+      <div class="pill">Real-time Tracking</div>
+      <div class="pill">Smart Routing</div>
+      <div class="pill">Analytics</div>
+      <div class="pill">API-First</div>
+    </div>
+  </div>
+  <div>
+    <div class="content-body">
+      <p>ItzFizz transforms last-mile delivery through intelligent automation and data-driven decision making. Our platform connects every node of your logistics network into a seamless, responsive system.</p>
+      <p>From automated pick-up point optimization to real-time customer communication — every touchpoint is engineered for maximum conversion and minimum friction.</p>
+      <p>Join hundreds of logistics operators who have already seen measurable improvements across delivery success rates, customer satisfaction, and operational efficiency.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FOOTER -->
+<footer>
+  <div class="logo">ITZ<span style="color:var(--accent)">FIZZ</span></div>
+  <div class="copy">© 2025 ITZFIZZ · All rights reserved · Built with precision</div>
+</footer>
+
+</body>
+</html>
